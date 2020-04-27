@@ -1,0 +1,24 @@
+{
+  "name": "wine-cellar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "serve": "^11.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "serve": "node_modules/serve/bin/serve.js"
+   
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarmenMFG/wine-cellar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CarmenMFG/wine-cellar/issues"
+  },
+  "homepage": "https://github.com/CarmenMFG/wine-cellar#readme"
+}
