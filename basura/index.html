@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <title>Wine Cellar</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="container-fluid d-flex justify-content-center">
+  <!--<div class="row">
+            <div class="col-3 justify-content-center"> 
+              <a href="#addWineModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i>
+              <span>Add New Wine</span></a>
+            </div>
+            <div class="col-3 justify-content-center">
+              <a href="#updateWineModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE254;</i>
+                <span>Update Wine</span></a>
+            </div>
+            <div class="col-3 justify-content-center"></div>
+            <div class="col-3 justify-content-center"><button type="button" class="btn btn-secondary btn-lg" id="buy">Buy</button></div>
+ 
+         
+    </div>-->
+    <div class="row col-lg-9 d-flex justify-content-center m-5 ">
+
+      <div class="card card-size m-1 card-wine ">
+        <img class="card-img-top" src="./assets/1.png" alt="Card image cap">
+        <div class="card-body ">
+          <h6 class="card-title">Card title</h6>
+           <input type="number" value="0"  min="0" max="9" step="1"/>
+        </div>
+      </div>
+
+      <div class="card card-size m-1 card-wine ">
+        <img class="card-img-top" src="./assets/2.png" alt="Card image cap">
+        <div class="card-body ">
+          <h6 class="card-title">Card title</h6>
+           <input type="number" value="0"  min="0" max="9" step="1"/>
+        </div>
+      </div>
+    </div> 
+ <!-- <div class="row">
+            <div class="col-lg-9 d-flex justify-content-center m-5" id="winesCards"></div>
+            <div class="col-lg-3 d-flex justify-content-center"></div>
+    </div>-->
+  </div>
+    <!-- Add wine Modal HTML -->
+  <!--<div id="addWineModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form>
+            <div class="modal-header">
+              <h4 class="modal-title">Add Wine</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              >
+                &times;
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Name</label>
+                <input
+                  id="nameAddWine"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Price</label>
+                <input
+                  id="priceAddWine"
+                  type="number"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Is Sale On</label>
+                <textarea
+                  id="isSaleOnAddWine"
+                  class="form-control"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label>Image</label>
+                <input
+                  id="imageAddWine"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+                value="Cancel"
+              />
+              <input
+                id="btnAddWine"
+                type="submit"
+                class="btn btn-success"
+                data-dismiss="modal"
+                value="Add"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>-->
+    <!-- Fin add Modal HTML -->
+    <!--EditModal-->
+  <!--  <div id="editWineModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form>
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Wine</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Name</label>
+                <input
+                  type="text"
+                  id="nameUpdateWine"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Price</label>
+                <input id="priceUpdateWine" type="number" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label>Is Sale On</label>
+                <input id="isSaleOnUpdateWine" type="text" class="form-control" required />
+              </div>
+              <div class="form-group">
+                 <label>Image</label>
+                <input id="imageUpdateWine" type="text" class="form-control" required/>
+              </div>
+              <div class="form-group">
+                <label>Food Pairing</label>
+               <input id="foodPairingUpdateWine" type="text" class="form-control" required/>
+             </div>
+            </div>
+            <div class="modal-footer">
+              <input
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+                value="Cancel"
+              />
+              <input
+                id="btnUpdateWine"
+                type="submit"
+                class="btn btn-success"
+                data-dismiss="modal"
+                value="Save"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>-->
+     <!-- Fin edit Modal HTML -->
+  <script src="models/wine.model.js"></script>
+  <script src="services/wine.service.js"></script>
+  <script src="controllers/wine.controller.js"></script>
+  <script src="views/wine.view.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

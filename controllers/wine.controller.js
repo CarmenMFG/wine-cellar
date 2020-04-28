@@ -5,21 +5,25 @@ class WineController{
         this.view =view;
 
         //Explicit this binding
-        this.view.bindAddwine(this.handleAddWine);
-        this.view.bindAddPurchase(this.handleAddPurchase);
-          // Display initial users
+       this.view.bindAddwine(this.handleAddWine);
+       this.view.bindChangeImage(this.handlerChangeImage);
+      //  this.view.bindAddPurchase(this.handleAddPurchase);
+      // Display initial users
        this.onWineListChanged(this.service.wines);
     }
-     onWineListChanged = (wines) => {
+      onWineListChanged = (wines) => {
         this.view.displayWines(wines);
-     }; 
+     };
  
 
-    handleAddWine=(wineObject)=>{
+  handleAddWine=(wineObject)=>{
       this.service.addWine(wineObject);
-     // console.log(wineText);
+      console.log(wineObject);
     };
-    
-    handleAddPurchase=(text)=>{
+    handlerChangeImage(image){
+        console.log(image);
     }
+    
+   /* handleAddPurchase=(text)=>{
+    }*/
 }
