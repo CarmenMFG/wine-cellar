@@ -1,4 +1,11 @@
-[
+,
+    {
+        "name":"IPrimero",
+        "price":30.20,
+        "isSaleOn":"",
+        "imgSrc":"./assets/3.png",
+        "foodPairing":null
+    },[
     {
         "name":"Murmuron",
         "price":10.20,
@@ -12,14 +19,7 @@
         "isSaleOn":"",
         "imgSrc":"./assets/2.png",
         "foodPairing":null
-    },
-    {
-        "name":"IPrimero",
-        "price":30.20,
-        "isSaleOn":"",
-        "imgSrc":"./assets/3.png",
-        "foodPairing":null
-    },
+    }
     {
         "name":"Excelens",
         "price":8.35,

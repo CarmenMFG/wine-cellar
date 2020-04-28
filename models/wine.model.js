@@ -1,3 +1,4 @@
+//import {Food} from 'food.model.js'
 class Wine{
     constructor({name,price,isSaleOn,imgSrc,foodPairing}){
         this.id=this.uuidv4();
@@ -6,6 +7,7 @@ class Wine{
         this.isSaleOn=isSaleOn;
         this.imgSrc=imgSrc;
         this.foodPairing=foodPairing;
+       // this.foodPairing=new Food();
         
     }
     uuidv4() {

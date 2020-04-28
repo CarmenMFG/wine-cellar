@@ -19,6 +19,10 @@ body {
 .card-wine:hover img {
      transform:scale(1.1);
 }
+input[type="file"]{
+  margin-top:7px;
+}
+
 /* Modal styles */
 /*.modal .modal-dialog {
     max-width: 400px;

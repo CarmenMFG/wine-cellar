@@ -1,1 +1,4 @@
-const app = new WineController(new WineService(), new WineView());
+const wineView=  new WineView();
+//const wineService=new WineService();
+const storageService= new StorageService('IndexedDB');
+const app = new WineController(storageService,wineView);

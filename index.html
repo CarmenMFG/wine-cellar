@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container-fluid d-flex justify-content-center"></div> 
+  <div class="container-fluid d-flex justify-content-center mt-2"></div> 
     <form>
       <div class="form-row">
         <div class="col">
@@ -20,13 +20,16 @@
         <div class="col">
           <input type="number" class="form-control" placeholder="Price" id="txtPrice">
         </div>
+       
         <div class="col">
-          <input type='file'  class="form-control" id="txtImage">
+          <input type="text" class="form-control" placeholder="Food Pairing" id="txtFoodPairing">
         </div>
         <div class="col">
-          <input type="number" class="form-control" placeholder="Food Pairing" id="txtFoodPairing">
+          <input type='file'  class="form-control-file" id="txtImage">
         </div>
-        <div class="col">
+        <div class="col-3 pt-1">
+          <button type="button" class="btn btn-secondary btn-sm" id="reset">Reset</button>
+
           <button type="button" class="btn btn-secondary btn-sm" id="add">Add</button>
        
           <button type="button" class="btn btn-secondary btn-sm" id="update">Update</button>
@@ -34,6 +37,7 @@
           <button type="button" class="btn btn-secondary btn-sm" id="delete">Delete</button>
       
           <button type="button" class="btn btn-secondary btn-sm" id="buy">Buy</button>
+        
         </div>
       </div>
     </form>
@@ -45,6 +49,7 @@
   </div>
   <script src="models/wine.model.js"></script>
   <script src="services/wine.service.js"></script>
+  <script src="services/storage.service.js"></script>
   <script src="controllers/wine.controller.js"></script>
   <script src="views/wine.view.js"></script>
   <script src="app.js"></script>
