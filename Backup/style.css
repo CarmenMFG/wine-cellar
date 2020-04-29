@@ -10,6 +10,10 @@ body {
     max-height:100% !important;
     text-align:center;
 }
+.card-size:hover{
+ box-shadow:3px 3px 18px #cccccc inset;
+} 
+
 .card-wine img{
     width:40%; 
     margin:5px auto;
