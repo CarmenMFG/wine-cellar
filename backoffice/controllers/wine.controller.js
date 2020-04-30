@@ -7,8 +7,8 @@ class WineController{
         //Explicit this binding
        this.view.bindAddwine(this.handleAddWine);
        this.service.bindWineListChanged(this.onWineListChanged);
-       this.view.bindChangeImage(this.handlerChangeImage);
-       this.view.bindResetForm(this.handlerReset);
+       this.view.bindChangeImage();
+       this.view.bindResetForm();
        this.view.bindClickTrUpdate(this.handlerClickTrUpdate);
        this.view.bindUpdateWine(this.handlerUpdateWine); 
        this.view.bindDeleteWine(this.handlerDeleteWine);
@@ -22,13 +22,7 @@ class WineController{
      handleAddWine=(wineObject)=>{
       this.service.addWine(wineObject);
      };
-    
-     handlerChangeImage=(image)=>{
-     
-    }
-    handlerReset=()=>{
-
-    }   
+      
     handlerClickTrUpdate=(id)=>{
         let wine=this.service.findWineById(id); 
         this.view.completeForm(wine);

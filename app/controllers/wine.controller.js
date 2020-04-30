@@ -1,23 +1,33 @@
 class WineController{
 
-    constructor(service,view){
+    constructor(service,cartService,view){
         this.service=service;
+        this.cartService=cartService;
         this.view =view;
 
+
         //Explicit this binding
-        this.service.bindWineListChanged(this.onWineListChanged);
         this.view.bindClickCard(this.handlerClickCard);
-    
-      // Display initial wines
-       this.onWineListChanged(this.service.wines);
+        this.service.bindWineListChanged(this.onWineListChanged);
+        this.cartService.bindCartListChanged(this.onCartListChanged);
+        this.view.bindClickDelete(this.handlerDeleteOrder) ; 
+        this.onWineListChanged(this.service.wines);
+     
     }
      onWineListChanged = (wines) => {
-        this.view.displayWines(wines);
+       this.view.displayWines(wines);
      };
-     handlerClickCard=(id)=>{
-         console.log(id);
-        /*let wine=this.service.findWineById(id); 
-        this.view.completeForm(wine);*/
+     onCartListChanged= (cart) => {
+      // console.log("El carrito es desde el controlador"+JSON.stringify(cart));
+       this.view.displayCart(cart);
+     }
+   
+      handlerClickCard=(id,units)=>{
+        let wine=this.service.findWineById(id); 
+        this.cartService.addWineToCart(wine,units);
+      }
+      handlerDeleteOrder=(idWine)=>{
+        this.cartService.deleteWineToCart(idWine);
       }
      
 }

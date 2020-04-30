@@ -1,0 +1,42 @@
+/_ Ejemplo de dos servicios en un controlador_/
+
+// StorageService.js constructor({ type }){ 
+    this.type = type;
+     if(this.type==='IndexedDB'){
+          initIndexedDB(); } }
+
+add(objeto){ 
+    if(this.type === 'IndexedDB'){ 
+        addIndexedDB(objeto) }
+        else {
+             addLocalStorage(objeto); }
+        } 
+       put(objeto1, objetoModificado){} delete(objeto){} read(id: string){}
+
+addLocalStorage(objeto){
+     localStorage.setItem(objeto.id, objeto) 
+     }
+  addIndexedDb(objeto){ indexedDb.add(objeto); }
+
+/**/
+
+/_ app.js_/ 
+const wineView = new WineView();
+ const wineService = new WineService({ storage: 'localstorage'}); 
+ //const storageService= new StorageService({type: 'IndexedDB'});
+  const app = new WineController(wineService, storageService, wineView);
+
+/_ WineController_/
+
+constructor(wineService, storageService,view){ 
+    this.wineService=wineService; this.storageService= storageService; this.view =view;
+
+addWine(wine){
+     this.wineService.add(wine);
+      this.storageService.add(wine); 
+     // this.httpClient.add(wine); } 
+     deleteWine(wine){ this.wineService.delete(wine); this.storageService.delete(wine); // this.httpClient.delete(wine); }
+
+WineService -> StorageService, HttpClient
+
+© 2020 GitHub, Inc.

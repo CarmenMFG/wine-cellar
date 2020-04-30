@@ -43,6 +43,9 @@ class WineService{
      bindWineListChanged(callback) {
       this.onWineListChanged = callback;
     }
+    findWineById(idWine){
+      return this.wines.find(({id}) => id==idWine);
+   }
     /*_commit(wines) {
       this.onWineListChanged(wines);
      }
@@ -53,9 +56,7 @@ class WineService{
       console.log(this.wines);
       this._commit(this.wines);
     }
-    findWineById(idWine){
-       return this.wines.find(({id}) => id==idWine);
-    }
+   
     updateWine(wine){
         this.wines = this.wines.map((_wine) =>
         _wine.id === wine.id ? new Wine(wine) : _wine

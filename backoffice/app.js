@@ -1,3 +1,4 @@
 const wineView=  new WineView();
-const wineService=new WineService();
+const storageService= new StorageService('LocalStorage');
+const wineService=new WineService(storageService);
 const app = new WineController(wineService,wineView);

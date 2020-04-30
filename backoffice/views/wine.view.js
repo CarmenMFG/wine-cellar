@@ -64,19 +64,17 @@ class WineView{
             this. _resetInputs();
         })
     }
-   bindChangeImage(handler){
+   bindChangeImage(){
         this.txtImage.addEventListener("change",event=>{
             event.preventDefault();  
             var input = event.target;
             var file = input.files[0];
-            handler(file.name);
             this.image=file.name;
         });
     }
-    bindResetForm(handler){
+    bindResetForm(){
         this.reset.addEventListener("click",event=>{
             event.preventDefault(); 
-            handler();
             this._resetInputs();  
         })
     }
