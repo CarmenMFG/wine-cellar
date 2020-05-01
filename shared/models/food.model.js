@@ -1,11 +1,9 @@
  class Food{
-    constructor({isGluteng,isVegan,kcal}){
+    constructor({name,isGluteng,isVegan,kcal}){
+        this.name=name;
         this.isGluteng=isGluteng;
         this.isVegan=isVegan;
         this.kcal=kcal;
-        this.isSaleOn=isSaleOn;
-        this.imgSrc=imgSrc;
-        this.foodPairing=foodPairing;
-        
+       
     }
 }

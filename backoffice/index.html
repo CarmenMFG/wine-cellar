@@ -75,14 +75,14 @@
                       <label>Image</label>
                       <input type='file'  class="form-control-file" id="txtImage">
                     </div>	
-                    <div class="form-group">
-                      <label>FoodPairing</label>
-                      <input type='text'  class="form-control-file" id="txtFoodPairing">
+                    <div class="form-group mt-5">
+                      <labe><a href="#addFoodPairing" class="linkFood" data-toggle="modal">
+                       + Add Food Pairing</a></labe>
                     </div>	
 
                   </div>
-                  <div class="formFooter">
-                    <input type="submit" class="btn btn-success" id="add" value="Add">
+                  <div class="formFooter mt-5">
+                    <input type="submit" class="btn btn-success " id="add" value="Add">
                     <input type="submit" class="btn btn-success" id="update" value="Update">
                     <input type="submit" class="btn btn-success" id="reset" value="Reset">
                   </div>
@@ -90,7 +90,50 @@
               </div>  
          </div>    
        </div>
+       <!--Modal Add food Pairing-->
+       <div id="addFoodPairing" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form>
+              <div class="modal-header">						
+                <h4 class="modal-title">Add Food Pairing</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">					
+               <div class="row">
+                  <div class="form-group col">
+                    <label>Name</label>
+                    <input id="modalNameFood" type="text" class="form-control" required>
+                  </div>
+                  <div class="form-group col">
+                    <label>KCal</label>
+                    <input id="modalkcalFood" type="number" class="form-control" required>
+                  </div>
+               </div>
+              <div class="row m-3">
+                <div class="form-check form-check-inline col ml-5">
+                  <input class="form-check-input" type="checkbox" id="chkVegan" value="isVegan">
+                  <label class="form-check-label" for="chkVegan">IsVegan</label>
+                </div>
+
+                <div class="form-check form-check-inline col  ml-5">
+                  <input class="form-check-input" type="checkbox" id="chkGluten" value="isGluten">
+                  <label class="form-check-label" for="chkGluten">Is Gluten</label>
+                </div>
+             </div>
+                              
+              <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                <input type="submit" class="btn btn-success" id="btnAddFood" value="Add">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal-->
+
   <script src="../shared/models/wine.model.js"></script>
+  <script src="../shared/models/food.model.js"></script>
   <script src="../shared/services/storage.service.js"></script>
   <script src="services/wine.service.js"></script>
   <script src="controllers/wine.controller.js"></script>

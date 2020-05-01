@@ -122,3 +122,53 @@ table img:hover{
 #manageWines{
   display:none;
 }
+/** Modal**/
+.modal .modal-dialog {
+  max-width: 400px;
+}
+.modal .modal-header, .modal .modal-body, .modal .modal-footer {
+  padding: 20px 30px;
+}
+.modal .modal-content {
+  border-radius: 3px;
+}
+.modal .modal-footer {
+  border-radius: 0 0 3px 3px;
+}
+.modal .modal-header{
+  background: #435d7d;
+  color: #fff;
+}
+.modal .modal-title {
+  display: inline-block;
+ 
+}
+.modal .modal-header .close{
+   color:white;
+
+}
+.modal .form-control {
+  border-radius: 2px;
+  box-shadow: none;
+ border-color: #dddddd;
+}
+.modal textarea.form-control {
+  resize: vertical;
+}
+.modal .btn {
+  border-radius: 2px;
+  min-width: 100px;
+}	
+.modal form label {
+  font-weight: normal;
+}	
+.hide{
+  display:none;
+}
+.show{
+  display:inline;
+}
+a.linkFood{
+ color:#435d7d;
+ font-weight: bold;
+}

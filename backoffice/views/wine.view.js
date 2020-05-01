@@ -4,6 +4,7 @@ class WineView{
         this.currentWine;
         this.btnShowForm=document.getElementById("btnShowForm");
         this.manageWines=document.getElementById("manageWines");
+        this.listFoodsPairing=[];
        //Formulario
         this.txtName=document.getElementById('txtName');
         this.txtPrice=document.getElementById('txtPrice');
@@ -18,6 +19,16 @@ class WineView{
         this.add=document.getElementById('add');
         this.reset=document.getElementById('reset');
         this.image="";
+       //Modal de añadir FoodPairing
+       this.addFoodPairing=document.getElementById("addFoodPairing");
+       this.modalNameFood=document.getElementById("modalNameFood");
+       this.modalkcalFood=document.getElementById("modalkcalFood");
+       this.chkVegan=document.getElementById("chkVegan");
+       this.chkGluten=document.getElementById("chkGluten");
+       this.btnAddFood=document.getElementById("btnAddFood");
+
+
+
 
     }
    displayWines(wines){
@@ -28,11 +39,15 @@ class WineView{
        wines.forEach((wine) => {
         htmlWine=document.createElement("tr");
         htmlWine.id=wine.id;
+         let foodPairing=""; //Para la cadena d comidas recomendadas
+         for (let food of wine.foodPairing){
+            foodPairing+=food.name + " ";
+         }
         htmlWine.innerHTML=`<td> <img src="${wine.imgSrc}"></td>
                             <td>${wine.name}</td>
                             <td>${wine.price}€</td>
                             <td>${wine.isSaleOn}</td>
-                            <td>${wine.foodPairing}</td>
+                            <td>${foodPairing}</td>
                             <td>
                             <a class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -51,19 +66,22 @@ class WineView{
         this.titleForm.innerHTML="Wines Form";
         this.update.disabled=false;
         this.add.disabled=false;
+        this.listFoodsPairing=[];
        
     }
 
     
   bindAddwine(handler){
+   
         this.add.addEventListener("click",event=>{
            event.preventDefault();  
-            const wine={
+          
+           const wine={
                 name : this.txtName.value,
                 price : this.txtPrice.value,
                 isSaleOn : this.txtIsSaleOn.value,
                 imgSrc :'../assets/'+this.image,
-                foodPairing :null
+                foodPairing :this.listFoodsPairing
             }
             handler(wine);
             this._resetInputs();
@@ -130,7 +148,6 @@ class WineView{
                  imgSrc :'../assets/'+this.image,
                  foodPairing : null
              }
-             console.log(this.image);
              handler(wineUpdate);
              this._resetInputs();
              this.manageWines.style.display = 'none';
@@ -148,6 +165,28 @@ class WineView{
            
         })
     } 
+    bindAddFood(){
+        this.btnAddFood.addEventListener("click",event=>{
+            event.preventDefault();  
+            const food={
+                name :  this.modalNameFood.value,
+                kcal : this.modalkcalFood.value,
+                isVegan : this.chkVegan.checked,
+                isGluten: this.chkGluten.checked              
+            }
+           this._deleteFieldsAddFoodModal();
+           $('#addFoodPairing').modal('hide');
+           this.listFoodsPairing=[...this.listFoodsPairing,food]; 
+           console.log(this.listFoodsPairing);
+        }
+        )
+    }
+    _deleteFieldsAddFoodModal(){
+		this.modalNameFood.value = ""; 
+		this.modalkcalFood.value = ""; 
+		this.chkVegan.checked=false;
+        this.chkGluten.checked  =false;
+	}
   
 }
     

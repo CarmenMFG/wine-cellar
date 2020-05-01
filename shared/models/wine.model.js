@@ -1,4 +1,4 @@
-//import {Food} from 'food.model.js'
+
 class Wine{
     constructor({name,price,isSaleOn,imgSrc,foodPairing}){
         this.id=this.uuidv4();
@@ -6,8 +6,14 @@ class Wine{
         this.price=price;
         this.isSaleOn=isSaleOn;
         this.imgSrc=imgSrc;
-        this.foodPairing=foodPairing;
-       // this.foodPairing=new Food();
+        if (foodPairing!==null){
+          this.foodPairing=foodPairing.map(food=>new Food(food));
+        }else{
+          this.foodPairing=foodPairing;
+        }
+       
+       // this.foodPairing=foodPairing;
+       // this.foodPairing=new Food({name:'Patatas',isVegan:true,isGluten:true,kcal:15});
         
     }
     uuidv4() {

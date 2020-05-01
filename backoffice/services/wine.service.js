@@ -15,7 +15,6 @@ class WineService{
 
     addWine(wine) {
       this.wines = [...this.wines, new Wine(wine)]; 
-      console.log(this.wines);
       this._commit(this.wines);
     }
     findWineById(idWine){
