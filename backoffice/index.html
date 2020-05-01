@@ -33,7 +33,7 @@
                             <div class="col-sm-6">
                               <h2>Manage <b>Wines</b></h2>
                             </div>
-                            <div class="col-sm-6">
+                            <div id="btnShowForm" class="col-sm-6">
                               <a href="" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Wine</span></a>
                             </div>
                         </div>
@@ -41,10 +41,10 @@
                     <table class="table table-striped table-hover">
                         <thead>
                           <tr>
+                              <th style="width:15%;">Image</th>
                               <th style="width:20%;">Name</th>
                               <th style="width:15%;">Price</th>
                               <th style="width:20%;">InSaleOn</th>
-                              <th style="width:15%;">Image</th>
                               <th style="width:15%;">Food Pairing</th>
                               <th style="width:15%;"></th>
                           </tr>
@@ -53,10 +53,10 @@
                     </table>
                 </div>   
               </div> 
-              <div class="col-4 manageWines">
+              <div class="col-4" id="manageWines">
                 <form>
                   <div class="formHeader">						
-                    <h4 id="titleForm">Wines Form</h4>
+                    <h4 id="titleForm"></h4>
                    </div>
                   <div>					
                     <div class="form-group">
@@ -82,7 +82,7 @@
 
                   </div>
                   <div class="formFooter">
-                    <input type="submit" class="btn btn-success" id="add" value="Submit">
+                    <input type="submit" class="btn btn-success" id="add" value="Add">
                     <input type="submit" class="btn btn-success" id="update" value="Update">
                     <input type="submit" class="btn btn-success" id="reset" value="Reset">
                   </div>

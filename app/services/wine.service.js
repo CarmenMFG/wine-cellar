@@ -1,5 +1,8 @@
 class WineService{
-    constructor(){
+    constructor(storageService){
+      this.storage=storageService;
+      this.wines=this.storage.getAll();
+ /*
       let initialWines=[
         {
             "name":"Murmuron",
@@ -37,7 +40,7 @@ class WineService{
             "foodPairing":null
         }
       ];
-      this.wines=initialWines.map((wine) => new Wine(wine));
+      this.wines=initialWines.map((wine) => new Wine(wine));*/
 
     }
      bindWineListChanged(callback) {

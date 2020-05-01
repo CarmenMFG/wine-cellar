@@ -9,6 +9,7 @@ class WineController{
        this.service.bindWineListChanged(this.onWineListChanged);
        this.view.bindChangeImage();
        this.view.bindResetForm();
+       this.view.bindClickAddForm();
        this.view.bindClickTrUpdate(this.handlerClickTrUpdate);
        this.view.bindUpdateWine(this.handlerUpdateWine); 
        this.view.bindDeleteWine(this.handlerDeleteWine);

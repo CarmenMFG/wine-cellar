@@ -2,6 +2,8 @@ class WineView{
     constructor(){
         this.winesCards=document.getElementById('winesCards');
         this.currentWine;
+        this.btnShowForm=document.getElementById("btnShowForm");
+        this.manageWines=document.getElementById("manageWines");
        //Formulario
         this.txtName=document.getElementById('txtName');
         this.txtPrice=document.getElementById('txtPrice');
@@ -26,10 +28,10 @@ class WineView{
        wines.forEach((wine) => {
         htmlWine=document.createElement("tr");
         htmlWine.id=wine.id;
-        htmlWine.innerHTML=`<td>${wine.name}</td>
+        htmlWine.innerHTML=`<td> <img src="${wine.imgSrc}"></td>
+                            <td>${wine.name}</td>
                             <td>${wine.price}€</td>
                             <td>${wine.isSaleOn}</td>
-                            <td> <img src="${wine.imgSrc}"></td>
                             <td>${wine.foodPairing}</td>
                             <td>
                             <a class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -44,9 +46,12 @@ class WineView{
         this.txtName.value="";
         this.txtPrice.value="";
         this.txtIsSaleOn.value="";
-        this.txtImage="";
+        this.txtImage=null;
         this.currentWine="";
-        this.titleForm.innerHTML="Wines Form"
+        this.titleForm.innerHTML="Wines Form";
+        this.update.disabled=false;
+        this.add.disabled=false;
+       
     }
 
     
@@ -61,7 +66,8 @@ class WineView{
                 foodPairing :null
             }
             handler(wine);
-            this. _resetInputs();
+            this._resetInputs();
+            this.manageWines.style.display = 'none';
         })
     }
    bindChangeImage(){
@@ -84,7 +90,11 @@ class WineView{
          if (event.target.parentElement.className=='edit'){
              this.currentWine=event.target.parentElement.parentElement.parentElement.id;
              handler(this.currentWine);
-             this.titleForm.innerHTML="Update Wine"
+             this.titleForm.innerHTML="Update <b>Wine</b>";
+             this.manageWines.style.display = 'block';
+             this.add.disabled=true;
+             this.update.disabled=false;
+            
          }
         })  
      }
@@ -123,25 +133,22 @@ class WineView{
              console.log(this.image);
              handler(wineUpdate);
              this._resetInputs();
+             this.manageWines.style.display = 'none';
  
          })
-    }  
-  /*  bindDeleteWine(handler){
-        this.delete.addEventListener("click",event=>{
-            event.preventDefault(); 
-            handler(this.currentWine);
-            this._resetInputs();  
-        })
-    }
-   
-    bindAddPurchase(handler){
-        this.buy.addEventListener("click",event=>{
+    } 
+    bindClickAddForm(){
+        this.btnShowForm.addEventListener("click",event=>{
             event.preventDefault();  
-            handler("hola");
+            this._resetInputs();  
+            this.titleForm.innerHTML="Add <b>Wine</b>";
+            this.manageWines.style.display = 'block';
+            this.update.disabled=true;
+            this.add.disabled=false;
+           
         })
-
-    }    */
-    
+    } 
+  
 }
     
  

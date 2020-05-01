@@ -97,26 +97,11 @@ table.table .avatar {
   vertical-align: middle;
   margin-right: 10px;
 }
-.pagination {
-  float: right;
-  margin: 0 0 5px;
-}
-.pagination li a {
-  border: none;
-  font-size: 13px;
-  min-width: 30px;
-  min-height: 30px;
-  color: #999;
-  margin: 0 2px;
-  line-height: 30px;
-  border-radius: 2px !important;
-  text-align: center;
-  padding: 0 6px;
-}
+
 .formHeader{
   background: #435d7d;
   color: #fff;
-  margin-top:30%;
+  margin-top:12%;
   margin-bottom:5%;
   padding:5px;
   text-align:center;
@@ -132,4 +117,8 @@ table img{
 }
 table img:hover{
   transform:scale(5);
+ 
+}
+#manageWines{
+  display:none;
 }

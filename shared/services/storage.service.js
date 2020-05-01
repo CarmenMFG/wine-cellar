@@ -17,10 +17,10 @@ class StorageService{
                 "foodPairing":null
             },
             {
-                "name":"Muñarrate",
+                "name":"Peñafiel",
                 "price":60.60,
                 "isSaleOn":"Carrefour",
-                "imgSrc":"../assets/2.png",
+                "imgSrc":"../assets/3.png",
                 "foodPairing":null
             },
             {
@@ -34,7 +34,7 @@ class StorageService{
                 "name":"7L",
                 "price":15.20,
                 "isSaleOn":"Mercadona",
-                "imgSrc":"../assets/5.png",
+                "imgSrc":"../assets/6.png",
                 "foodPairing":null
             }
           ];//Para q esté inicializado con unos cuantos vinos..

@@ -30,20 +30,20 @@ class WineView{
         let htmlCart;
         let bill=0;
         for (var [id, order] of Object.entries(orders)) {
-              if ( order.units>0 ) {
+              if ( order.units > 0 ) {
                 htmlCart=document.createElement("tr");
                 htmlCart.id=id;
-                htmlCart.innerHTML=`<td>${order.name}</td>
-                                <td>${order.price}€</td>
-                                <td>${order.units}</td>
-                                <td>${order.subtotal}</td>
-                                <td>
-                                <a class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                </td>`;
+                htmlCart.innerHTML=`<td>${order.units}</td>
+                                    <td>${order.name}</td>
+                                    <td>${order.price}€</td>
+                                    <td>${order.subtotal}</td>
+                                    <td>
+                                     <a class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete"  style="font-size:15px">&#xE872;</i></a>
+                                    </td>`;
           bill+=parseFloat(order.subtotal);                      
           this.cart.append(htmlCart);   
         } 
-        this.bill.innerHTML=bill;
+        this.bill.innerHTML=bill.toFixed(2);
              
       
         }    
