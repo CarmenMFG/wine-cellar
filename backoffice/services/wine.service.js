@@ -31,6 +31,10 @@ class WineService{
        this.wines=this.wines.filter(({id}) =>id!=idWine);
        this._commit(this.wines);
     }
+  /*  deleteFood(idWine,idFood){
+      let wine=this.findWineById(idWine);
+      wine.foodPairing=wine.foodPairing.filter(({id})=>id!==idFood);
+    }*/
 
 
 }

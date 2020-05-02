@@ -4,7 +4,9 @@ class WineView{
         this.currentWine;
         this.btnShowForm=document.getElementById("btnShowForm");
         this.manageWines=document.getElementById("manageWines");
+        this.foods=document.getElementById("foods");// Tabla de las foods Pairing cdo hace el updat
         this.listFoodsPairing=[];
+
        //Formulario
         this.txtName=document.getElementById('txtName');
         this.txtPrice=document.getElementById('txtPrice');
@@ -67,6 +69,7 @@ class WineView{
         this.update.disabled=false;
         this.add.disabled=false;
         this.listFoodsPairing=[];
+        this.foods.innerHTML="";
        
     }
 
@@ -134,7 +137,34 @@ class WineView{
         this.txtIsSaleOn.value=isSaleOn;
         this.txtFoodPairing=foodPairing;
         this.image=imgSrc.substr(10);
+        this.listFoodsPairing=foodPairing;
+        this.completeTableFoods();
 
+    }
+    completeTableFoods(){
+        this.foods.innerHTML="";
+        let htmlFood;
+        this.listFoodsPairing.forEach((food) => {
+            htmlFood=document.createElement("tr");
+         let vegan=(food.isVega) ? "Vegan": "No vegan";
+         let gluten=(food.isGluten) ? "Gluten": "No gluten";
+         htmlFood.innerHTML=`<td><b>${food.name}</b></td>
+                             <td>${vegan}</td>
+                             <td>${gluten}</td>
+                             <td>
+                             <i id="${food.id}" class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                             </td>`;
+         this.foods.append(htmlFood);   
+        });                   
+
+    }
+    bindDeleteFood(){
+       this.foods.addEventListener("click",event=>{
+       event.preventDefault();  
+       let idFood=event.target.id;
+       this.listFoodsPairing=this.listFoodsPairing.filter(({id})=>id!==idFood);
+       this.completeTableFoods();
+     }) 
     }
   
  bindUpdateWine(handler){
@@ -146,7 +176,7 @@ class WineView{
                  price : this.txtPrice.value,
                  isSaleOn : this.txtIsSaleOn.value,
                  imgSrc :'../assets/'+this.image,
-                 foodPairing : null
+                 foodPairing : this.listFoodsPairing
              }
              handler(wineUpdate);
              this._resetInputs();
@@ -177,7 +207,7 @@ class WineView{
            this._deleteFieldsAddFoodModal();
            $('#addFoodPairing').modal('hide');
            this.listFoodsPairing=[...this.listFoodsPairing,food]; 
-           console.log(this.listFoodsPairing);
+           this.completeTableFoods();
         }
         )
     }

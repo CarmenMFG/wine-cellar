@@ -14,6 +14,7 @@ class WineController{
        this.view.bindClickTrUpdate(this.handlerClickTrUpdate);
        this.view.bindUpdateWine(this.handlerUpdateWine); 
        this.view.bindDeleteWine(this.handlerDeleteWine);
+       this.view.bindDeleteFood();
        // Display initial users
        this.onWineListChanged(this.service.wines);
     }
@@ -37,5 +38,6 @@ class WineController{
     handlerDeleteWine=(idWine)=>{
         this.service.deleteWine(idWine); 
     }    
+   
    
 }
