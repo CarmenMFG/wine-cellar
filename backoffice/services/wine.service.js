@@ -1,6 +1,6 @@
 class WineService{
   constructor(storageService){
-    this.storage=storageService;
+     this.storage=storageService;
      this.wines=this.storage.getAll();
 
   }
@@ -8,14 +8,15 @@ class WineService{
       this.onWineListChanged = callback;
     }
     _commit(wines) {
-      this.onWineListChanged(wines);
       this.storage.save(this.wines);
+      this.onWineListChanged(this.storage.getAll());
      }
   
 
     addWine(wine) {
-      this.wines = [...this.wines, new Wine(wine)]; 
-      this._commit(this.wines);
+      let wineObj= new Wine(wine)
+      this.wines = [...this.wines,wineObj]; 
+       this._commit(this.wines);
     }
     findWineById(idWine){
        return this.wines.find(({id}) => id==idWine);
@@ -31,12 +32,6 @@ class WineService{
        this.wines=this.wines.filter(({id}) =>id!=idWine);
        this._commit(this.wines);
     }
-  /*  deleteFood(idWine,idFood){
-      let wine=this.findWineById(idWine);
-      wine.foodPairing=wine.foodPairing.filter(({id})=>id!==idFood);
-    }*/
-
-
-}
+ }
 
   

@@ -37,6 +37,7 @@ class WineView{
        //borro todos los vinos
         this.winesCards.innerHTML="";
        //Escribir todos los vinos..
+       console.log("Los vinos");
        let htmlWine;
        wines.forEach((wine) => {
         htmlWine=document.createElement("tr");
