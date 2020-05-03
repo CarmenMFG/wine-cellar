@@ -1,8 +1,8 @@
  class Food{
-    constructor({name,isGluteng,isVegan,kcal}){
+    constructor({name,isGluten,isVegan,kcal}){
         this.id=this.uuidv4();
         this.name=name;
-        this.isGluteng=isGluteng;
+        this.isGluten=isGluten;
         this.isVegan=isVegan;
         this.kcal=kcal;
        

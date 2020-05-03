@@ -10,7 +10,7 @@ class WineController{
         this.view.bindClickCard(this.handlerClickCard);
         this.service.bindWineListChanged(this.onWineListChanged);
         this.cartService.bindCartListChanged(this.onCartListChanged);
-        this.view.bindClickDelete(this.handlerDeleteOrder) ; 
+        this.view.bindClickDelete(this.handlerDeleteOrder) ;
         this.onWineListChanged(this.service.wines);
      
     }
@@ -26,6 +26,7 @@ class WineController{
         let wine=this.service.findWineById(id); 
         this.cartService.addWineToCart(wine,units);
       }
+    
       handlerDeleteOrder=(idWine)=>{
         this.cartService.deleteWineToCart(idWine);
       }
