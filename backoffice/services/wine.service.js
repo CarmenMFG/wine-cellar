@@ -2,21 +2,25 @@ class WineService{
   constructor(storageService){
      this.storage=storageService;
      this.wines=this.storage.getAll();
-
-  }
+   };
+   
      bindWineListChanged(callback) {
       this.onWineListChanged = callback;
     }
     _commit(wines) {
       this.storage.save(this.wines);
-      this.onWineListChanged(this.storage.getAll());
+      this.onWineListChanged(wines);
      }
-  
-
     addWine(wine) {
       let wineObj= new Wine(wine)
       this.wines = [...this.wines,wineObj]; 
-       this._commit(this.wines);
+      if(this.storage.type=="IndexedDB"){
+         this.storage.saveIDB(wineObj).then(this._commit(this.wines));
+      }else{
+         this.storage.save(this.wines);
+        this._commit(this.wines)
+      }
+     
     }
     findWineById(idWine){
        return this.wines.find(({id}) => id==idWine);

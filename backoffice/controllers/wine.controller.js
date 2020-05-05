@@ -23,12 +23,12 @@ class WineController{
      };
  
      handleAddWine=(wineObject)=>{
-      // console.log("desde el controller"+JSON.stringify(wineObject));
-        this.service.addWine(wineObject);
+         this.service.addWine(wineObject);
      };
       
     handlerClickTrUpdate=(id)=>{
         let wine=this.service.findWineById(id); 
+        console.log("en el controlador"+wine);
         this.view.completeForm(wine);
      }
     

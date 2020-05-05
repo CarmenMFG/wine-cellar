@@ -37,8 +37,7 @@ class WineView{
        //borro todos los vinos
         this.winesCards.innerHTML="";
        //Escribir todos los vinos..
-       console.log("Los vinos");
-       let htmlWine;
+        let htmlWine;
        wines.forEach((wine) => {
         htmlWine=document.createElement("tr");
         htmlWine.id=wine.id;
@@ -111,6 +110,7 @@ class WineView{
          event.preventDefault();  
          if (event.target.parentElement.className=='edit'){
              this.currentWine=event.target.parentElement.parentElement.parentElement.id;
+             console.log("el vino es"+this.currentWine);
              handler(this.currentWine);
              this.titleForm.innerHTML="Update <b>Wine</b>";
              this.manageWines.style.display = 'block';
@@ -147,7 +147,7 @@ class WineView{
         let htmlFood;
         this.listFoodsPairing.forEach((food) => {
             htmlFood=document.createElement("tr");
-         let vegan=(food.isVega) ? "Vegan": "No vegan";
+         let vegan=(food.isVegan) ? "Vegan": "No vegan";
          let gluten=(food.isGluten) ? "Gluten": "No gluten";
          htmlFood.innerHTML=`<td><b>${food.name}</b></td>
                              <td>${vegan}</td>

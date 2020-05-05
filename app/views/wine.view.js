@@ -24,16 +24,11 @@ class WineView{
           wine.foodPairing.forEach((food)=>{
             info+=`<b>${food.name}</b><br>`;
             info+=`${food.kcal }kcal<br>`;  
-            info =(food.isVegan) ? info+"Is vegan<br>" : info+"No vegan<br>";
-            info =(food.isGluten) ? info+"Is gluten<br><br>" : info+"No gluten<br><br>";
+            info =(food.isVegan) ? info+"Vegan<br>" : info+"No vegan<br>";
+            info =(food.isGluten) ? info+"Gluten<br><br>" : info+"No gluten<br><br>";
            // info =(wine.isGluten)
           });
           
-           
-         
-        
-
-
           html+= `<div class="card card-size m-1 card-wine" id="${wine.id}">
                      <img class="card-img-top" src="${wine.imgSrc}" alt="Card image cap">
                      <div class="card-body ">
@@ -43,7 +38,7 @@ class WineView{
                          <a href="#infoWine_${wine.id}" class="delete" data-toggle="collapse"><i class="material-icons" data-toggle="tooltip">expand_more</i></a>
                           <p id="infoWine_${wine.id}"  class="collapse">
                             <b style="color:#6588b2;font-size:1.2em;"> Is sale on </b>${wine.isSaleOn}<br>
-                            <b style="color:#6588b2;font-size:1.2em;">Foods pairing</b>
+                            <b style="color:#6588b2;font-size:1.2em;">Foods pairing<br></b>
                             ${info} 
                            </p>
                          </div>
@@ -86,7 +81,7 @@ class WineView{
          }
         })  
      }
-     bindClickCardInfo(handler){ //Cuando click para más informacion.. 
+    /* bindClickCardInfo(handler){ //Cuando click para más informacion.. 
         this.winesCards.addEventListener("click",event=>{
          event.preventDefault(); 
         if (event.target.className=='info material-icons'){
@@ -94,7 +89,7 @@ class WineView{
              handler(this.currentWine);//Le paso el id del vino del q quiero información
          }
         })  
-     }
+     }*/
 
      bindClickDelete(handler){
         this.cart.addEventListener("click",event=>{
