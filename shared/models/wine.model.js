@@ -1,7 +1,7 @@
 
 class Wine{
-    constructor({name,price,isSaleOn,imgSrc,foodPairing}){
-        this.id=this.uuidv4();
+    constructor({id,name,price,isSaleOn,imgSrc,foodPairing}){
+        this.id= id== null ? this.uuidv4() : id;
         this.name=name;
         this.price=price;
         this.isSaleOn=isSaleOn;

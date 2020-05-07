@@ -78,8 +78,8 @@ class WineView{
    
         this.add.addEventListener("click",event=>{
            event.preventDefault();  
-          
            const wine={
+                id:null,
                 name : this.txtName.value,
                 price : this.txtPrice.value,
                 isSaleOn : this.txtIsSaleOn.value,
@@ -138,6 +138,7 @@ class WineView{
         this.txtIsSaleOn.value=isSaleOn;
         this.txtFoodPairing=foodPairing;
         this.image=imgSrc.substr(10);
+        //this.listFoodsPairing=foodPairing.map(({id,...rest}) => ({...rest}));
         this.listFoodsPairing=foodPairing;
         this.completeTableFoods();
 
@@ -153,7 +154,7 @@ class WineView{
                              <td>${vegan}</td>
                              <td>${gluten}</td>
                              <td>
-                             <i id="${food.id}" class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                             <i id="${food.name}" class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                              </td>`;
          this.foods.append(htmlFood);   
         });                   
@@ -162,8 +163,8 @@ class WineView{
     bindDeleteFood(){
        this.foods.addEventListener("click",event=>{
        event.preventDefault();  
-       let idFood=event.target.id;
-       this.listFoodsPairing=this.listFoodsPairing.filter(({id})=>id!==idFood);
+       let nameFood=event.target.id;
+       this.listFoodsPairing=this.listFoodsPairing.filter(({name})=>name!==nameFood);
        this.completeTableFoods();
      }) 
     }
@@ -171,6 +172,7 @@ class WineView{
  bindUpdateWine(handler){
         this.update.addEventListener("click",event=>{
           event.preventDefault();  
+          console.log("La lista de foodPairing"+JSON.stringify(this.listFoodsPairing));
             let wineUpdate={
                  id:  this.currentWine,
                  name : this.txtName.value,
@@ -179,6 +181,7 @@ class WineView{
                  imgSrc :'../assets/'+this.image,
                  foodPairing : this.listFoodsPairing
              }
+           
              handler(wineUpdate);
              this._resetInputs();
              this.manageWines.style.display = 'none';
@@ -208,7 +211,7 @@ class WineView{
            this._deleteFieldsAddFoodModal();
            $('#addFoodPairing').modal('hide');
            this.listFoodsPairing=[...this.listFoodsPairing,food]; 
-           this.completeTableFoods();
+          this.completeTableFoods();
         }
         )
     }

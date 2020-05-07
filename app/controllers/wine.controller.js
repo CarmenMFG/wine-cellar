@@ -18,8 +18,7 @@ class WineController{
        this.view.displayWines(wines);
      };
      onCartListChanged= (cart) => {
-      // console.log("El carrito es desde el controlador"+JSON.stringify(cart));
-       this.view.displayCart(cart);
+        this.view.displayCart(cart);
      }
    
       handlerClickCard=(id,units)=>{

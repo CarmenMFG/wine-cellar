@@ -28,7 +28,6 @@ class WineController{
       
     handlerClickTrUpdate=(id)=>{
         let wine=this.service.findWineById(id); 
-        console.log("en el controlador"+wine);
         this.view.completeForm(wine);
      }
     
@@ -36,7 +35,8 @@ class WineController{
        this.service.updateWine(wine); 
     }
     handlerDeleteWine=(idWine)=>{
-        this.service.deleteWine(idWine); 
+        let wine=this.service.findWineById(idWine); 
+        this.service.deleteWine(wine); 
     }    
    
    

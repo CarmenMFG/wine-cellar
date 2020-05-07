@@ -37,7 +37,7 @@ class WineView{
                          <input id="i_${wine.id}"class="units" type="number" value="0"  min="0" max="200" step="1"/><br>
                          <a href="#infoWine_${wine.id}" class="delete" data-toggle="collapse"><i class="material-icons" data-toggle="tooltip">expand_more</i></a>
                           <p id="infoWine_${wine.id}"  class="collapse">
-                            <b style="color:#6588b2;font-size:1.2em;"> Is sale on </b>${wine.isSaleOn}<br>
+                            <b style="color:#6588b2;font-size:1.2em;"> Is sale on </b><br>${wine.isSaleOn}<br>
                             <b style="color:#6588b2;font-size:1.2em;">Foods pairing<br></b>
                             ${info} 
                            </p>
