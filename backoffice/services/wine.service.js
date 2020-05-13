@@ -37,7 +37,7 @@ class WineService {
                     resolve(this.wines);
                 })
                 .catch(() => {
-                    console.log('No hay datos en local/indexed, se coge el array puesto a mano en service');
+                   //No hay datos en local/indexed, se coge el array puesto a mano en service
                     this.wines = initialWines.map((wine) => new Wine(wine));
                     reject();
                 });

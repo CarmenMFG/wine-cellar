@@ -17,7 +17,7 @@ class StorageService {
         this.type = type;
         this.configuration = configuration;
         this.initialWines = [{
-                id:"1",
+                "id": "1",
                 "name": "Murmuron",
                 "price": 10.20,
                 "isSaleOn": "Hipercor",
@@ -25,7 +25,7 @@ class StorageService {
                 "foodPairing": [{ name: 'Patatas', isVegan: true, isGluten: true, kcal: 15 }, { name: 'Jamon', isVegan: true, isGluten: true, kcal: 23 }]
             },
             {
-                id:"2",
+                "id": "2",
                 "name": "Muñarrate",
                 "price": 60.60,
                 "isSaleOn": "Corte Inglés",
@@ -33,7 +33,7 @@ class StorageService {
                 "foodPairing": []
             },
             {
-                id: "3",
+                "id": "3",
                 "name": "Peñafiel",
                 "price": 60.60,
                 "isSaleOn": "Carrefour",
@@ -41,7 +41,7 @@ class StorageService {
                 "foodPairing": [{ name: 'Pescado', isVegan: true, isGluten: true, kcal: 30 }, { name: 'Ternera', isVegan: true, isGluten: true, kcal: 30 }]
             },
             {
-                id: "4",
+                "id": "4",
                 "name": "Excelens",
                 "price": 8.35,
                 "isSaleOn": "Alcampo",
@@ -49,7 +49,7 @@ class StorageService {
                 "foodPairing": []
             },
             {
-                id: "5",
+                "id": "5",
                 "name": "7L",
                 "price": 15.20,
                 "isSaleOn": "Mercadona",
@@ -79,14 +79,11 @@ class StorageService {
                 console.log('Vino ya existente');
             })
             .catch(() => {
-                console.log("thisDB", this.db);
-                const transaction = this.db.transaction(['wines'], 'readwrite');
-                const objectStore = transaction.objectStore('wines');
-                console.log("objectstore", objectStore);
-                objectStore.onsucces = function(event) {
-                    const request = objectStore.add(wine);
-                    request.onsuccess = () => console.log('Vino añadido');
-                }
+               let transaction = this.db.transaction(['wines'], 'readwrite');
+               let objectStore = transaction.objectStore('wines');
+               let request = objectStore.add(wine);
+               request.onsuccess = () => console.log('Vino añadido');
+           
 
             });
     };
@@ -107,7 +104,8 @@ class StorageService {
     _removeIndexed = (wine) => {
         const transaction = this.db.transaction(['wines'], 'readwrite');
         const objectStore = transaction.objectStore('wines');
-        const request = objectStore.remove(wine.id);
+        const request = objectStore.delete(wine.id);
+        request.onsuccess = () => console.log('Vino borrado');
     };
 
 
@@ -158,9 +156,8 @@ class StorageService {
     /*---------------------------FIND-----------------------------------------------------------*/
 
     find = () => {
-        //  return this.type === 'indexedDB' ? this._findIndexed() : this._findLocal();
-        let finde = this._findIndexed();
-        return this._findIndexed();
+        return this.type === 'indexedDB' ? this._findIndexed() : this._findLocal();
+       //  return this._findIndexed();
     };
 
     _findLocal() {
@@ -229,11 +226,11 @@ class StorageService {
         return new Promise((resolve, reject) => {
             if (this.db == null) {
                 this._initialStorage().then(() => {
-                   // console.log("getDB when db is null");
+                    console.log("getDB when db is null");
                     resolve()
                 });
             } else {
-                //console.log("getDB when db not is null");
+                console.log("getDB when db not is null");
                 resolve();
             }
         })
@@ -267,5 +264,6 @@ class StorageService {
             });
         }
     
+
 
 }
