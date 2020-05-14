@@ -1,49 +1,9 @@
 class WineService {
     constructor(storageService) {
-        this.storage = storageService;
-        /*   this.storage.find()
-                        .then((wines) => {
-                          this.wines = wines.map((wine) => wine);
-                         })
-                        .catch(() => {
-                           console.log('No hay datos en local/indexed, se coge el array puesto a mano en service');
-                              this.wines = initialWines.map((wine) => new Wine(wine));
-                         });*/
-        /* this.wines=this.storage.find()
-                                 .then
-                                .map((wine) => new Wine(wine), ) ;*/
-    }
+        this.storageService=storageService;
+        this.wines = [];
+    }    
 
-    InitialiceBDD() {
-        return new Promise((resolve, reject) => {
-            this.storage.InitializeBBDD()
-                .then(() => {
-
-                    resolve();
-                })
-                .catch(() => {
-                    console.log('No se ha podido inicializr');
-
-                    reject();
-                });
-
-        });
-    }
-    bindFindWines() {
-        return new Promise((resolve, reject) => {
-            this.storage.find()
-                .then((wines) => {
-                    this.wines = wines.map((wine) => wine);
-                    resolve(this.wines);
-                })
-                .catch(() => {
-                   //No hay datos en local/indexed, se coge el array puesto a mano en service
-                    this.wines = initialWines.map((wine) => new Wine(wine));
-                    reject();
-                });
-
-        });
-    }
 
     bindWineListChanged(callback) {
         this.onWineListChanged = callback;
@@ -51,10 +11,22 @@ class WineService {
     _commit(wines) {
         this.onWineListChanged(wines);
     }
+
+    loadWines() {
+        // Promise<Wine[]>
+        return this.storageService.find().then((wines) => (this.wines = wines));
+      }
+    
+     async loadWinesAwait() {
+         console.log(this.storageService);
+        const wines = await this.storageService.find();
+        this.wines = wines;
+        return this.wines;
+      }
     addWine(wine) {
         let wineObj = new Wine(wine)
         this.wines = [...this.wines, wineObj];
-        this.storage.add(wineObj);
+        this.storageService.add(wineObj);
         this._commit(this.wines);
 
     }
@@ -75,7 +47,7 @@ class WineService {
         /*   this.wines = this.wines.map((_wine) =>
             _wine.id === wine.id ? new Wine(wine) : _wine
             );*/
-        this.storage.update(wineOriginal);
+        this.storageService.update(wineOriginal);
         this._commit(this.wines);
 
     }
@@ -83,7 +55,7 @@ class WineService {
     deleteWine(wine) {
         console.log("wine" + JSON.stringify(wine));
         this.wines = this.wines.filter(({ id }) => id != wine.id);
-        this.storage.remove(wine);
+        this.storageService.remove(wine);
         this._commit(this.wines);
     }
 }

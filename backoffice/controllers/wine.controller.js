@@ -16,12 +16,8 @@ class WineController {
         this.view.bindDeleteWine(this.handlerDeleteWine);
         this.view.bindDeleteFood();
 
-        this.service.InitialiceBDD().then(() => {
-            this.service.bindFindWines().then((wines) => { this.view.displayWines(wines) });
-        });
-
         // Display initial users
-        //    this.onWineListChanged(this.service.wines);
+         this.onWineListChanged(this.service.wines);
     }
     onWineListChanged = (wines) => {
         this.view.displayWines(wines);

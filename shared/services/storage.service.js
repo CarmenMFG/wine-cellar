@@ -14,6 +14,9 @@ class StorageService {
 
 
     constructor({ type, configuration }) {
+        if (type === 'indexedDB') {
+            this.db;
+        }
         this.type = type;
         this.configuration = configuration;
         this.initialWines = [{
@@ -67,9 +70,10 @@ class StorageService {
     };
 
     _addLocal = (item) => {
-        let items = this._loadStore();
-        items = [...items, item];
-        localStorage.setItem(this.KEY, JSON.stringify(items));
+            this._loadStore().then((items)=>{
+            items = [...items, item];
+            localStorage.setItem(this.KEY, JSON.stringify(items));
+        })
     };
 
     _addIndexed = (wine) => {
@@ -157,112 +161,91 @@ class StorageService {
 
     find = () => {
         return this.type === 'indexedDB' ? this._findIndexed() : this._findLocal();
-       //  return this._findIndexed();
     };
 
     _findLocal() {
+       
         return this._loadStore();
     }
     _loadStore() {
-        return JSON.parse(localStorage.getItem(this.KEY)) || [];
+        return Promise.resolve((JSON.parse(localStorage.getItem(this.KEY)) || []));
+
     }
 
     _findIndexed = () => {
+        const transaction = this.db.transaction(['wines'], 'readwrite');
+        const objectStore = transaction.objectStore('wines');
+        const request = objectStore.openCursor();
         return new Promise((resolve, reject) => {
-            const wines = [];
-            this.getDB().then(() => {
-                const transaction = this.db.transaction(['wines'], 'readonly');
-                const objectStore = transaction.objectStore('wines');
-                const request = objectStore.openCursor();
-                request.onsuccess = (e) => {
-                    const cursor = e.target.result;
-                    if (cursor) {
-                        wines.push(cursor.value);
-                        cursor.continue();
-                    } else {
-                        resolve(wines);
-                    }
-                };
-            });
-        })
-    };
-
-    _initIndexedDB = () => {
-        return new Promise((resolve, reject) => {
-            const indexedDB = window.indexedDB;
-            if (!indexedDB) {
-                reject();
-            }
-            //base datos
-            const request = indexedDB.open('wineCellar', 2);
-
-            request.onsuccess = () => {
-                console.log('onsuccess')
-                resolve({ db: request.result });
-            };
-
-            request.onupgradeneeded = () => {
-                console.log('onupgradeneeded')
-                request.result.createObjectStore('wines', { keyPath: 'id', });
-            };
-
-            request.onerror = (error) => {
-                console.log('Error', error);
-            };
-        });
-    };
-
-    _initialStorage = () => {
-        return new Promise((resolve, reject) => {
-            this._initIndexedDB().then(({ db }) => {
-
-                this.db = db;
-                resolve();
-            });
-        });
-    }
-
-    getDB = () => {
-        return new Promise((resolve, reject) => {
-            if (this.db == null) {
-                this._initialStorage().then(() => {
-                    console.log("getDB when db is null");
-                    resolve()
-                });
+          const wines = [];
+    
+          request.onsuccess = (e) => {
+            const cursor = e.target.result;
+            if (cursor) {
+              wines.push(cursor.value);
+              cursor.continue();
             } else {
-                console.log("getDB when db not is null");
-                resolve();
+              resolve(wines);
             }
-        })
-    }
+          };
+        });
+      };
+    
 
-    InitializeBBDD = () => {
-
-            return new Promise((resolve, reject) => {
-                this.getDB().then(() => {
-
-                    // aqui habra que ver si ya hay registros en la bbdd, en cuyo caso no se añade ninguo
-                    let transaction = this.db.transaction('wines', 'readwrite');
-                    let objectStore = transaction.objectStore('wines');
-
-                    for (const wine of this.initialWines) {
-
-                        objectStore.add({...wine });
-                        console.log(wine);
-                    }
-
-                    objectStore.onsuccess = function() {
-                        console.log("objectStore.result", objectStore.result);
-                    }
-
-                    objectStore.onerror = function() {
-                        console.log("Error", objectStore.error);
-                    };
-
-                    resolve();
-                });
-            });
-        }
+    initializeDB = () => {
+        return this.type === 'indexedDB'
+          ? this._initializeIndexedDB()
+          : this._initializeLocalStorage();
+      };
+    
+      _initializeIndexedDB() {
+        return this._openIndexedDB().then(() => {
+          let transaction = this.db.transaction('wines', 'readwrite');
+          let objectStore = transaction.objectStore('wines');
+    
+          for (const wine of this.initialWines) {
+            objectStore.add(wine);
+            console.log(wine);
+          }
+    
+          objectStore.onsuccess = function () {
+            console.log('objectStore.result', objectStore.result);
+          };
+    
+          objectStore.onerror = function () {
+            console.log('Error', objectStore.error);
+          };
+        });
+      }
+    
+      _initializeLocalStorage() {
+        localStorage.setItem(this.KEY, JSON.stringify(this.initialWines));
+        return Promise.resolve(true);
+      }
+    
+      _openIndexedDB = () => {
+        return new Promise((resolve, reject) => {
+          const indexedDB = window.indexedDB;
+          if (!indexedDB) {
+            reject('IndexedDB not defined');
+          }
+          if (this.db) {
+            resolve({ db: this.db });
+          }
+    
+          //base datos
+          const request = indexedDB.open('wineCellar', 2);
+    
+          request.onsuccess = () => {
+            this.db = request.result;
+            resolve({ db: request.result });
+          };
+    
+          request.onupgradeneeded = () =>
+            request.result.createObjectStore('wines', { keyPath: 'id' });
+           
+        });
+      };
     
 
 

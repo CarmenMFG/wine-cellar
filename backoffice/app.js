@@ -1,5 +1,16 @@
-const wineView=  new WineView();
-//const storageService= new StorageService({ type:'LocalStorage', configuration:{key:'id'}});indexedDB
-const storageService= new StorageService({ type:'indexedDB', configuration:{key:'id'}});
-const wineService=new WineService(storageService);
-const app = new WineController(wineService,wineView);
+const storageService = new StorageService({
+    type: 'localStorage', //localstorage o indexedDB
+    configuration: { key: 'id' },
+  });
+  (async () => {
+    try {
+      await storageService.initializeDB();
+      const wineService = new WineService(storageService);
+      const wines = await wineService.loadWinesAwait();
+      const wineView = new WineView();
+      new WineController(wineService, wineView);
+    } catch (error) {
+      console.error(error);
+    }
+  })();
+  
