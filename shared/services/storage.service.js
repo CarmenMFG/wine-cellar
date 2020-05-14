@@ -1,6 +1,8 @@
 class StorageService {
     KEY = 'wines';
-
+    LOCAL='localStorage';
+    DIXIE= 'dixie';
+    INDEXED='indexedDB';
     /* 
     configuration LocalStorage
        id
@@ -14,7 +16,7 @@ class StorageService {
 
 
     constructor({ type, configuration }) {
-        if (type === 'indexedDB') {
+        if (type === 'indexedDB'||type=='Dixie') {
             this.db;
         }
         this.type = type;
@@ -66,8 +68,25 @@ class StorageService {
     /*-----------------------ADD--------------------------------*/
 
     add = (item) => {
-        this.type === 'indexedDB' ? this._addIndexed(item) : this._addLocal(item);
-    };
+   
+      switch (this.type){
+        case this.INDEXED : 
+                          this._addIndexed(item);
+                          break;
+        case this.DIXIE:
+                          this. _addDixie(item);
+                          break;
+        case this.LOCAL:
+                          this._addLocal(item);
+                          break;
+        } 
+    }
+    
+    
+    _addDixie=(item)=>{
+      this.db.wines.add(item);  
+     }
+        
 
     _addLocal = (item) => {
             this._loadStore().then((items)=>{
@@ -95,11 +114,23 @@ class StorageService {
 
 
     remove = (content) => {
-        this.type === 'indexedDB' ?
-            this._removeIndexed(content) :
-            this._removeLocal(content);
-    };
-
+      switch (this.type){
+        case this.INDEXED : 
+                         this._removeIndexed(content)
+                          break;
+        case this.DIXIE:
+                          this._removeDixie(content);
+                          break;
+        case this.LOCAL:
+                          this._removeLocal(content);
+                          break;
+        } 
+     }  
+     _removeDixie=(item)=>{
+        this.db.wines.where("id").anyOf(item.id).delete();
+     }  
+      
+    
     _removeLocal = (item) => {
         const id = this.configuration.key;
         const items = this._loadStore().filter((_item) => _item[id] !== item[id]);
@@ -115,10 +146,22 @@ class StorageService {
 
     /*-------------------------UPDATE---------------------------------------------------*/
     update = (item) => {
-        this.type === 'indexedDB' ?
-            this._updateIndexed(item) :
-            this._updateLocal(item);
+      switch (this.type){
+        case this.INDEXED :
+                          this._updateIndexed(item)
+                          break;
+        case this.DIXIE:
+                          this._updateDixie(item) 
+                          break;
+        case this.LOCAL:
+                          this._updateLocal(item);
+                          break;
+      } 
+                
     };
+    _updateDixie=(item)=>{
+      this.db.wines.update(item.id,item); 
+    }
 
     _updateLocal = (item) => {
         const id = this.configuration.key;
@@ -136,12 +179,26 @@ class StorageService {
     /*---------------------------FINDONE------------------------------------------------------------------ */
 
     findOne = (item) => {
-        return this.type === 'indexedDB' ?
-            this._findOneIndexed(item) :
-            this._findOneLocal(item);
-    };
 
-    _findOneLocal(item) {
+      let content;
+      switch (this.type){
+      
+        case this.INDEXED :
+                           content=this._findOneIndexed(item)
+                           break;
+        case this.DIXIE:
+          content=this._findOneDixie(item)
+                          break;
+        case this.LOCAL:
+          content= this._findOneLocal(item);
+                          break;
+      } 
+      return content;
+    }
+    _findOneDixie(item) {  
+      this.db.wines.filter((wine)=>wine.id==item.id);
+    };
+   _findOneLocal(item) {
         const idToFind = item[this.configuration.key];
         const items = this._loadStore();
         return items.find((item) => item[this.configuration.key] === idToFind);
@@ -160,8 +217,25 @@ class StorageService {
     /*---------------------------FIND-----------------------------------------------------------*/
 
     find = () => {
-        return this.type === 'indexedDB' ? this._findIndexed() : this._findLocal();
-    };
+            let items;
+            switch (this.type){
+              case this.INDEXED :
+                             items=this._findIndexed()
+                                break;
+              case this.DIXIE:
+                              items=  this._findDixie()
+                                break;
+              case this.LOCAL:
+                             items=  this._findLocal() 
+                                break;
+            } 
+            return items;
+         
+     }
+     _findDixie() {
+              
+      return  this.db.wines.toArray();
+      }
 
     _findLocal() {
        
@@ -190,13 +264,24 @@ class StorageService {
           };
         });
       };
-    
+    /** -----  Inicializar -----------  */
 
     initializeDB = () => {
-        return this.type === 'indexedDB'
-          ? this._initializeIndexedDB()
-          : this._initializeLocalStorage();
-      };
+      let store;
+      switch (this.type){
+        case this.INDEXED :
+                          store= this._initializeIndexedDB()
+                          break;
+        case this.DIXIE:
+                          store= this._initializeDixie()
+                          break;
+        case this.LOCAL:
+                          store= this._initializeLocalStorage();
+                          break;
+      } 
+      return store;
+       
+      }
     
       _initializeIndexedDB() {
         return this._openIndexedDB().then(() => {
@@ -246,6 +331,25 @@ class StorageService {
            
         });
       };
+
+      _initializeDixie =()=>{
+        this._openDixie();
+        Promise.resolve(true);
+    }
+   
+    _openDixie=()=>{
+        if (!this.db){
+          this.db = new Dexie('wine-database');
+          this.db.version(1).stores({
+              wines: 'id'
+          });
+           for (const wine of this.initialWines) {
+              this.db.wines.add(wine);  
+          }     
+             
+     }
+   }
+
     
 
 
