@@ -58,7 +58,7 @@ class StorageService {
                 "name": "7L",
                 "price": 15.20,
                 "isSaleOn": "Mercadona",
-                "imgSrc": "../assets/6.png",
+                "imgSrc": "../assets/7.png",
                 "foodPairing": [{ name: 'Pescado', isVegan: true, isGluten: true, kcal: 30 }]
             }
         ];
@@ -89,10 +89,10 @@ class StorageService {
         
 
     _addLocal = (item) => {
-            this._loadStore().then((items)=>{
+             let items=this._loadStore();
             items = [...items, item];
             localStorage.setItem(this.KEY, JSON.stringify(items));
-        })
+        
     };
 
     _addIndexed = (wine) => {
@@ -239,10 +239,10 @@ class StorageService {
 
     _findLocal() {
        
-        return this._loadStore();
+        return Promise.resolve(this._loadStore());
     }
     _loadStore() {
-        return Promise.resolve((JSON.parse(localStorage.getItem(this.KEY)) || []));
+        return (JSON.parse(localStorage.getItem(this.KEY)) || []);
 
     }
 
@@ -333,21 +333,18 @@ class StorageService {
       };
 
       _initializeDixie =()=>{
-        this._openDixie();
-        Promise.resolve(true);
-    }
-   
-    _openDixie=()=>{
         if (!this.db){
           this.db = new Dexie('wine-database');
           this.db.version(1).stores({
               wines: 'id'
-          });
+         });
            for (const wine of this.initialWines) {
               this.db.wines.add(wine);  
           }     
-             
-     }
+          Promise.resolve(true);
+   
+      }
+
    }
 
     

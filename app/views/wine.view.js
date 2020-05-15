@@ -81,17 +81,7 @@ class WineView{
          }
         })  
      }
-    /* bindClickCardInfo(handler){ //Cuando click para más informacion.. 
-        this.winesCards.addEventListener("click",event=>{
-         event.preventDefault(); 
-        if (event.target.className=='info material-icons'){
-             this.currentWine=event.target.parentElement.parentElement.parentElement.id;
-             handler(this.currentWine);//Le paso el id del vino del q quiero información
-         }
-        })  
-     }*/
-
-     bindClickDelete(handler){
+    bindClickDelete(handler){
         this.cart.addEventListener("click",event=>{
          event.preventDefault();  
         if (event.target.className=='material-icons'){

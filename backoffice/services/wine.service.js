@@ -33,27 +33,25 @@ class WineService {
     findWineById(idWine) {
         return this.wines.find(({ id }) => id == idWine);
     }
-    updateWine({ id, name, price, isSaleOn, imgSrc, foodPairing }) {
-
+    updateWine(wine) {
+       /* { id, name, price, isSaleOn, imgSrc, foodPairing }
         foodPairing = foodPairing.map(food => new Food(food));
         let wineOriginal = this.wines.find(item => item.id == id);
         wineOriginal.name = name;
         wineOriginal.price = price;
         wineOriginal.isSaleOn = isSaleOn;
         wineOriginal.imgSrc = imgSrc;
-        wineOriginal.foodPairing = foodPairing;
-
-
-        /*   this.wines = this.wines.map((_wine) =>
+        wineOriginal.foodPairing = foodPairing;*/
+  
+         this.wines = this.wines.map((_wine) =>
             _wine.id === wine.id ? new Wine(wine) : _wine
-            );*/
-        this.storageService.update(wineOriginal);
+         );
+        this.storageService.update(wine);
         this._commit(this.wines);
 
     }
 
     deleteWine(wine) {
-        console.log("wine" + JSON.stringify(wine));
         this.wines = this.wines.filter(({ id }) => id != wine.id);
         this.storageService.remove(wine);
         this._commit(this.wines);

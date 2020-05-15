@@ -1,5 +1,5 @@
   const storageService = new StorageService({
-    type: 'dixie', //localstorage o indexedDB o dixie
+    type: 'localStorage', //localstorage o indexedDB o dixie
     configuration: { key: 'id' },
   });
  
